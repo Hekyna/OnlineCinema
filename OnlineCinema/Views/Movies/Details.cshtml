@@ -1,0 +1,70 @@
+﻿@model OnlineCinema.Models.Movie
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="details-container">
+
+    <div class="details-poster">
+
+        @if (!string.IsNullOrWhiteSpace(Model.PosterUrl))
+        {
+            <img src="@Model.PosterUrl"
+                 alt="@Model.Title" />
+        }
+
+    </div>
+
+    <div class="details-info">
+
+        <span class="movie-genre">
+            @Model.Genre
+        </span>
+
+        <h1>@Model.Title</h1>
+
+        <p class="details-description">
+            @Model.Description
+        </p>
+
+        @if (!string.IsNullOrWhiteSpace(Model.VideoUrl))
+        {
+            <div class="video-container">
+
+                <h2>Трейлер / відео</h2>
+
+                <video controls>
+                    <source src="@Model.VideoUrl" />
+                    Ваш браузер не підтримує відтворення відео.
+                </video>
+
+            </div>
+        }
+
+        <div class="details-buttons">
+
+            <a asp-action="Index"
+               class="btn-cancel">
+                ← До фільмів
+            </a>
+
+            <form asp-action="Delete"
+                  asp-route-id="@Model.Id"
+                  method="post"
+                  onsubmit="return confirm('Ви дійсно хочете видалити цей фільм?');">
+
+                @Html.AntiForgeryToken()
+
+                <button type="submit"
+                        class="btn-delete">
+                    Видалити фільм
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

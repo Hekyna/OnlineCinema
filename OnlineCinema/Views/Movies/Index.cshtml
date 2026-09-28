@@ -1,0 +1,75 @@
+﻿@model IEnumerable<OnlineCinema.Models.Movie>
+
+@{
+    ViewData["Title"] = "Онлайн кінотеатр";
+}
+
+<div class="cinema-header">
+    <div>
+        <h1>Онлайн кінотеатр</h1>
+        <p>Переглядайте доступні фільми та трейлери</p>
+    </div>
+
+    <a asp-action="Create" class="btn-add">
+        + Додати фільм
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="empty-cinema">
+        <h2>Фільмів поки немає</h2>
+        <p>Додайте перший фільм до онлайн кінотеатру.</p>
+
+        <a asp-action="Create" class="btn-add">
+            Додати перший фільм
+        </a>
+    </div>
+}
+else
+{
+    <div class="movies-grid">
+
+        @foreach (var movie in Model)
+        {
+            <div class="movie-card">
+
+                <div class="movie-poster">
+                    @if (!string.IsNullOrWhiteSpace(movie.PosterUrl))
+                    {
+                        <img src="@movie.PosterUrl"
+                             alt="@movie.Title" />
+                    }
+                    else
+                    {
+                        <div class="no-poster">
+                            Немає постера
+                        </div>
+                    }
+                </div>
+
+                <div class="movie-content">
+
+                    <span class="movie-genre">
+                        @movie.Genre
+                    </span>
+
+                    <h2>@movie.Title</h2>
+
+                    <p>
+                        @movie.Description
+                    </p>
+
+                    <a asp-action="Details"
+                       asp-route-id="@movie.Id"
+                       class="btn-watch">
+                        Переглянути
+                    </a>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+}

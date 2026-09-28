@@ -1,0 +1,119 @@
+﻿@model OnlineCinema.Models.Movie
+
+@{
+    ViewData["Title"] = "Додати фільм";
+}
+
+<div class="create-container">
+
+    <div class="create-header">
+        <h1>Додати новий фільм</h1>
+        <p>Заповніть інформацію та завантажте файли</p>
+    </div>
+
+    <form asp-action="Create"
+          method="post"
+          enctype="multipart/form-data"
+          class="movie-form">
+
+        <div asp-validation-summary="ModelOnly"
+             class="validation"></div>
+
+        <div class="form-group">
+            <label asp-for="Title">
+                Назва фільму
+            </label>
+
+            <input asp-for="Title"
+                   class="form-control"
+                   placeholder="Наприклад: Інтерстеллар" />
+
+            <span asp-validation-for="Title"
+                  class="validation"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Genre">
+                Жанр
+            </label>
+
+            <input asp-for="Genre"
+                   class="form-control"
+                   placeholder="Наприклад: Фантастика" />
+
+            <span asp-validation-for="Genre"
+                  class="validation"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description">
+                Опис фільму
+            </label>
+
+            <textarea asp-for="Description"
+                      class="form-control description-input"
+                      placeholder="Введіть опис фільму"></textarea>
+
+            <span asp-validation-for="Description"
+                  class="validation"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PosterFile">
+                Постер фільму
+            </label>
+
+            <input asp-for="PosterFile"
+                   type="file"
+                   accept="image/*"
+                   class="file-input" />
+
+            <span asp-validation-for="PosterFile"
+                  class="validation"></span>
+
+            <small>
+                Оберіть зображення для постера.
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="VideoFile">
+                Відео або трейлер
+            </label>
+
+            <input asp-for="VideoFile"
+                   type="file"
+                   accept="video/*"
+                   class="file-input" />
+
+            <span asp-validation-for="VideoFile"
+                  class="validation"></span>
+
+            <small>
+                Рекомендується використовувати невеликий MP4-файл для тестування.
+            </small>
+        </div>
+
+        <div class="form-buttons">
+
+            <a asp-action="Index"
+               class="btn-cancel">
+                Назад
+            </a>
+
+            <button type="submit"
+                    class="btn-save">
+                Додати фільм
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
